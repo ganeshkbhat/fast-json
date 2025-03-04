@@ -120,7 +120,7 @@ function JsonManager() {
     }
 
     // instantiates the new value
-    function init(obj) {
+    function init(obj = {}) {
         return data = flattenJsonWithEscaping(obj);
     }
 

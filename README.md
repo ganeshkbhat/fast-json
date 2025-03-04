@@ -13,6 +13,10 @@ const JsonManager = require('json-faster').JsonManager; // Replace with the path
 // Usage Example:
 const manager = new JsonManager();
 
+// init or clear data 
+manager.init({}); // inits or clears with a blank object
+manager.init(); // inits or clears with a blank object
+
 // Adding data
 manager.write('key1', 'value1');
 manager.write('key2', 'value2');
