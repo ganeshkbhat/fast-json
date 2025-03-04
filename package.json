@@ -1,0 +1,24 @@
+{
+  "name": "fast-json",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "read write to json object fast using a flat structure read write update.",
+  "scripts": {
+    "test": "mocha --reporter spec --recursive --timeout 60000"
+  },
+  "directories": {
+    "test": "./test"
+  },
+  "keywords": [
+    "read write to json object fast", 
+    "flat json structure read write update",
+    "fast-json read write update"
+  ],
+  "author": "Ganesh B <desktopcgi@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^10.8.2",
+    "sinon": "^19.0.2"
+  }
+}
