@@ -8,7 +8,7 @@ this package supports the fast, secure and private, memory leak resistant redis 
 
 ```
 
-const JsonManager = require('faster-json').JsonManager; // Replace with the path to your implementation
+const JsonManager = require('json-faster').JsonManager; // Replace with the path to your implementation
 
 // Usage Example:
 const manager = new JsonManager();
@@ -84,3 +84,4 @@ console.log(manager.search('^key\\d$', { regex: true }));
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
 
 ```
+
