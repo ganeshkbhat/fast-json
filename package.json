@@ -1,5 +1,5 @@
 {
-  "name": "faster-json",
+  "name": "json-faster",
   "version": "1.0.0",
   "main": "index.js",
   "description": "read write to json object fast using a flat structure read write update.",

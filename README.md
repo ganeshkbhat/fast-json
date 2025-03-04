@@ -1,4 +1,4 @@
-# faster-json
+# json-faster
 fast read write to json object using a flat json structure read write update. 
 
 this package supports the fast, secure and private, memory leak resistant redis like key value json based data store [keyvalue-jsondb](https://github.com/ganeshkbhat/keyvalue-jsondb.git) package. 
