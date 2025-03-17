@@ -1,5 +1,8 @@
 
 
+var fs = require("fs");
+
+
 /**
  * Converts a single-level JSON object with dot notation keys into a nested JSON object.
  * 
@@ -80,6 +83,29 @@ function flattenJsonWithEscaping(obj, prefix = "") {
 }
 
 
+/**
+ *
+ *
+ * @param {*} obj
+ * @param {*} filename
+ * @return {*} 
+ */
+function writeToFile(obj, filename) {
+    try {
+        fs.writeFileSync(filename, json.Stringify(obj))
+        return true
+    } catch (e) {
+        return JSON.stringify(e);
+    }
+}
+
+/**
+ * JsonManager
+ * 
+ * read, write, update, dump, init, hasKey, getKey, delKey, search, searchValue, searchKeyValue
+ *
+ * @return {*} 
+ */
 function JsonManager() {
     var data = {};
 
@@ -111,12 +137,22 @@ function JsonManager() {
 
     // Checks if a key exists
     function hasKey(key) {
-        return data.hasOwnProperty(key);
+        return !!data.hasOwnProperty(key) || !!data[key];
     }
 
     // Gets the value of a key
     function getKey(key) {
         return data[key];
+    }
+
+    // Deletes the value of a key
+    function delKey(key) {
+        try {
+            delete data[key]
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 
     // instantiates the new value
@@ -252,6 +288,7 @@ function JsonManager() {
         init,
         hasKey,
         getKey,
+        delKey,
         search,
         searchValue,
         searchKeyValue
@@ -262,6 +299,7 @@ function JsonManager() {
 module.exports = {
     JsonManager,
     flattenJsonWithEscaping,
-    unflattenJson
-} 
+    unflattenJson,
+    writeToFile
+}
 
