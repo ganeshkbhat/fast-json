@@ -146,7 +146,7 @@ function JsonManager() {
     }
 
     // Deletes the value of a key
-    function delKey(key) {
+    function deleteKey(key) {
         try {
             delete data[key]
             return true;
@@ -288,7 +288,7 @@ function JsonManager() {
         init,
         hasKey,
         getKey,
-        delKey,
+        deleteKey,
         search,
         searchValue,
         searchKeyValue
