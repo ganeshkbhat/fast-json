@@ -152,6 +152,11 @@ function JsonManager() {
         return { ...unflattenJson(data) }; // Return a shallow copy to prevent direct modification
     }
 
+    // Dumps the entire JSON object to file
+    function dumpToFile(obj, filename) {
+        return writeToFile(JSON.stringify(obj), filename)
+    }
+
     // Checks if a key exists
     function hasKey(key) {
         return !!data.hasOwnProperty(key) || !!data[key];
@@ -308,7 +313,8 @@ function JsonManager() {
         deleteKey,
         search,
         searchValue,
-        searchKeyValue
+        searchKeyValue,
+        dumpToFile
     }
 
 }

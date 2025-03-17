@@ -15,6 +15,5 @@ const nestedData3 = {
 }
 
 writeToFile(JSON.stringify(flattenJsonWithEscaping(nestedData3)), "./demos/flattenjson.txt")
-
 writeToFile(JSON.stringify(unflattenJson(flattenJsonWithEscaping(nestedData3))), "./demos/unflattenjson.txt")
 
