@@ -1,3 +1,20 @@
+/**
+ * 
+ * Package: 
+ * Author: Ganesh B
+ * Description: 
+ * Install: npm i json-faster --save
+ * Github: https://github.com/ganeshkbhat/fast-json
+ * npmjs Link: https://www.npmjs.com/package/json-faster
+ * File: index.js
+ * File Description: 
+ * 
+ * 
+*/
+
+/* eslint no-console: 0 */
+
+'use strict';
 
 
 var fs = require("fs");
