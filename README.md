@@ -87,5 +87,8 @@ console.log(manager.search('key', { like: true }));
 console.log(manager.search('^key\\d$', { regex: true }));
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
 
+// Delete keys
+manager.deleteKey('key2');
+
 ```
 
