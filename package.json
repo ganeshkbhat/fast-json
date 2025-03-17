@@ -20,5 +20,10 @@
     "chai": "^5.1.2",
     "mocha": "^10.8.2",
     "sinon": "^19.0.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ganeshkbhat/fast-json.git"
+  },
+  "homepage": "https://github.com/ganeshkbhat/fast-json#readme"
 }
