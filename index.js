@@ -109,7 +109,7 @@ function flattenJsonWithEscaping(obj, prefix = "") {
  */
 function writeToFile(obj, filename) {
     try {
-        fs.writeFileSync(filename, json.Stringify(obj))
+        fs.writeFileSync(filename, obj);
         return true
     } catch (e) {
         return JSON.stringify(e);
