@@ -17,7 +17,7 @@ describe('JsonManager', function () {
     });
 
     it('should create a key with null value if createKey is true', function () {
-      expect(manager.read('newKey', true)).to.be.null;
+      expect(manager.read('newKey', { createKey: true })).to.be.null;
       expect(manager.dump()).to.have.property('newKey', null);
     });
 

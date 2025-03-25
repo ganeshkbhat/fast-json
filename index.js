@@ -131,11 +131,11 @@ function JsonManager() {
     // }
 
     // Read method with createKey functionality
-    function read(key, createKey = false) {
+    function read(key, options = { createKey: false }) {
         if (data.hasOwnProperty(key)) {
             return data[key];
         }
-        if (createKey) {
+        if (options.createKey) {
             data[key] = null;
             return data[key];
         }
@@ -149,12 +149,24 @@ function JsonManager() {
 
     // Dumps the entire JSON object
     function dump() {
-        return { ...unflattenJson(data) }; // Return a shallow copy to prevent direct modification
+        // return { ...unflattenJson(data) }; // Return a shallow copy to prevent direct modification
+        return { ...data }; // Return a shallow copy to prevent direct modification
+    }
+
+    // Dumps the entire criteria searchedJSON object
+    function dumpKeys(criteria, options = { like: false, regex: false }, type = "search") {
+        if (type === "value") {
+            return searchValue(criteria, options);
+        } else if (type === "keyvalue") {
+            return searchKeyValue(criteria, options);
+        } else {
+            return search(criteria, options);
+        }
     }
 
     // Dumps the entire JSON object to file
     function dumpToFile(obj, filename) {
-        return writeToFile(JSON.stringify(obj), filename)
+        return writeToFile(JSON.stringify(obj), filename);
     }
 
     // Checks if a key exists
@@ -179,12 +191,14 @@ function JsonManager() {
 
     // instantiates the new value
     function init(obj = {}) {
-        return data = flattenJsonWithEscaping(obj);
+        // return data = flattenJsonWithEscaping(obj);
+        return data = obj;
     }
 
     // updates the json with new json structure
     function update(obj) {
-        return { ...data, ...flattenJsonWithEscaping(obj) };
+        // return { ...data, ...flattenJsonWithEscaping(obj) };
+        return { ...data, ...obj };
     }
 
     // Searches keys and returns an array of key-value pairs
@@ -222,7 +236,7 @@ function JsonManager() {
 
         return results;
     }
-
+    
     // Searches values and returns an array of key-value pairs
     function searchValue(criteria, options = { like: false, regex: false }) {
         const results = [];
@@ -307,14 +321,15 @@ function JsonManager() {
         write,
         update,
         dump,
+        dumpKeys,
+        dumpToFile,
         init,
         hasKey,
         getKey,
         deleteKey,
         search,
         searchValue,
-        searchKeyValue,
-        dumpToFile
+        searchKeyValue
     }
 
 }
