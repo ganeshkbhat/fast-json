@@ -4,9 +4,11 @@
   "main": "index.js",
   "description": "read write to json object fast using a flat structure read write update.",
   "scripts": {
+    "demo": "node ./demos/demos.fastreadwrite.js",
     "test": "mocha --reporter spec --recursive --timeout 60000"
   },
   "directories": {
+    
     "test": "./test"
   },
   "keywords": [

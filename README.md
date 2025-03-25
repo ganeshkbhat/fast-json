@@ -71,9 +71,17 @@ console.log(manager.getKey('key1')); // 'value1'
 // Dumping data
 console.log(manager.dump()); // { key1: 'value1' }
 
+// Dumping data based on criteria
+console.log(manager.dumpKeys('key1', { like: true }, "search")); // { key1: 'value1' }
+// Output: [{ key: 'key1', value: 'value1' }]
+
 // Searching keys
 manager.write('key2', 'value2');
 manager.write('anotherKey', 'value3');
+
+// Dumping data based on criteria
+console.log(manager.dumpKeys(['key1', 'key3', 'anotherKey'], { like: true }, "search")); // { key1: 'value1' }
+// Output dumps: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
 
 // Search for specific keys in an array
 console.log(manager.search(['key1', 'key3', 'anotherKey']));
