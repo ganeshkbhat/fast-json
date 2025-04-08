@@ -390,7 +390,7 @@ module.exports = {
     writeToFile,
     flattenJsonWithEscaping,
     unflattenJson,
-    flattenWithEscape: flattenJsonWithEscaping,
-    unflatten: unflattenJson    
+    flatten: flattenJsonWithEscaping,
+    unflatten: unflattenJson
 }
 
