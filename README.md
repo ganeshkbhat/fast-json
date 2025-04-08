@@ -11,11 +11,10 @@ Explanation of Each Function Usage:
 #### init(obj): 
 Initializes the JSON manager with the provided object.
 
-// init or clear data 
-// inits or clears with a blank object
+// init or clear data, inits or clears with a blank object
+
 `manager.init({});`
 
-// inits or clears with a blank object
 `manager.init();` 
 
 
@@ -23,6 +22,7 @@ Initializes the JSON manager with the provided object.
 Adds or updates a key-value pair in the JSON object.
 
 // Adding data
+
 `manager.write('key1', 'value1');`
 
 `manager.write('key2', 'value2');`
@@ -37,31 +37,30 @@ Reads the value of a key. If the key doesn't exist and createKey is true, it cre
 
 // Reading key
 
-`console.log(manager.read('key1', false));` 
-// undefined
+`console.log(manager.read('key1', false));` // undefined
 
-`console.log(manager.read('key1', true));` 
-// null
+
+`console.log(manager.read('key1', true));` // null
+
 
 
 #### hasKey(key): 
 Checks if a key exists in the JSON object.
 
-`console.log(manager.hasKey('key1'));` 
-// true
+`console.log(manager.hasKey('key1'));` // true
 
 
 #### getKey(key): 
 Retrieves the value of a specific key.
 
-`console.log(manager.getKey('key1'));` 
-// 'value1'
+`console.log(manager.getKey('key1'));` // 'value1'
 
 
 #### deleteKey(key): 
 Deletes a key from the JSON object.
 
 // Delete keys
+
 manager.deleteKey('key2');
 
 
@@ -75,14 +74,17 @@ Merges the provided object into the existing JSON object.
 Searches for keys matching the criteria. Supports exact match, partial match (like), and regex.
 
 // Search for specific keys in an array
+
 `console.log(manager.search(['key1', 'key3', 'anotherKey']));`
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
 
 // Search using partial match
+
 `console.log(manager.search('key', { like: true }));`
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
 
 // Search using regex
+
 `console.log(manager.search('^key\\d$', { regex: true }));`
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
 
@@ -91,6 +93,7 @@ Searches for keys matching the criteria. Supports exact match, partial match (li
 Searches for values matching the criteria. Supports exact match, partial match (like), and regex.
 
 // Searching for values
+
 `console.log(manager.searchValue('value1'));`
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }]
 
@@ -108,6 +111,7 @@ Searches for values matching the criteria. Supports exact match, partial match (
 Searches for both keys and values matching the criteria.
 
 // Searching for key-value pairs
+
 `console.log(manager.searchKeyValue('key1'));`
 // Output: [{ key: 'key1', value: 'value1' }]
 
@@ -128,6 +132,7 @@ Searches for both keys and values matching the criteria.
 Returns the entire JSON object.
 
 // Dumping data
+
 `console.log(manager.dump());` 
 // { key1: 'value1' }
 
@@ -136,6 +141,7 @@ Returns the entire JSON object.
 Dumps keys matching the criteria. The type can be "search", "value", or "keyvalue".
 
 // Dumping data based on criteria
+
 `console.log(manager.dumpKeys(['key1', 'key3', 'anotherKey'], { like: true }, "search"));` 
 // Output dumps: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
 
