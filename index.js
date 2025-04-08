@@ -387,8 +387,10 @@ function JsonManager() {
 
 module.exports = {
     JsonManager,
+    writeToFile,
     flattenJsonWithEscaping,
     unflattenJson,
-    writeToFile
+    flattenWithEscape: flattenJsonWithEscaping,
+    unflatten: unflattenJson    
 }
 
