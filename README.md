@@ -256,6 +256,8 @@ manager.deleteKey('key2');
 
 ```
 
+#### Flatten and Unflatten Json
+
 
 ```
 // unflattenJson and unflatten work the same
