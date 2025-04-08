@@ -61,7 +61,7 @@ Deletes a key from the JSON object.
 
 // Delete keys
 
-manager.deleteKey('key2');
+`manager.deleteKey('key2');`
 
 
 #### update(obj): 
@@ -76,16 +76,19 @@ Searches for keys matching the criteria. Supports exact match, partial match (li
 // Search for specific keys in an array
 
 `console.log(manager.search(['key1', 'key3', 'anotherKey']));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
 
 // Search using partial match
 
 `console.log(manager.search('key', { like: true }));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
 
 // Search using regex
 
 `console.log(manager.search('^key\\d$', { regex: true }));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
 
 
@@ -95,15 +98,19 @@ Searches for values matching the criteria. Supports exact match, partial match (
 // Searching for values
 
 `console.log(manager.searchValue('value1'));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }]
 
 `console.log(manager.searchValue(['value1', 'value3']));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
 
 `console.log(manager.searchValue('value', { like: true }));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }, { key: 'keyWithValue1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
 
 `console.log(manager.searchValue('^value\\d$', { regex: true }));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }, { key: 'keyWithValue1', value: 'value1' }]
 
 
@@ -113,18 +120,23 @@ Searches for both keys and values matching the criteria.
 // Searching for key-value pairs
 
 `console.log(manager.searchKeyValue('key1'));`
+
 // Output: [{ key: 'key1', value: 'value1' }]
 
 `console.log(manager.searchKeyValue(['key1', 'value3']));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
 
 `console.log(manager.searchKeyValue('value1', { like: true }));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }]
 
 `console.log(manager.searchKeyValue('^key\\d$', { regex: true }));`
+
 // Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
 
 `console.log(manager.searchKeyValue('value2', { regex: true }));`
+
 // Output: [{ key: 'key2', value: 'value2' }]
 
 
@@ -134,6 +146,7 @@ Returns the entire JSON object.
 // Dumping data
 
 `console.log(manager.dump());` 
+
 // { key1: 'value1' }
 
 
@@ -142,7 +155,8 @@ Dumps keys matching the criteria. The type can be "search", "value", or "keyvalu
 
 // Dumping data based on criteria
 
-`console.log(manager.dumpKeys(['key1', 'key3', 'anotherKey'], { like: true }, "search"));` 
+`console.log(manager.dumpKeys(['key1', 'key3', 'anotherKey'], { like: true }, "search"));`
+ 
 // Output dumps: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
 
 
