@@ -16,8 +16,8 @@
 
 'use strict';
 
-
-var fs = require("fs");
+const fs = require("fs");
+const path = require("path");
 
 
 /**
@@ -103,18 +103,69 @@ function flattenJsonWithEscaping(obj, prefix = "") {
 /**
  *
  *
+ * @param {*} filename
+ * @return {*} 
+ */
+function safeFilePath(filename) {
+    // 
+    // const fs = require("fs");
+    // const path = require("path");
+    // function readFile(filename) {
+    //     // Directly using user input to construct the file path
+    //     const filePath = path.join(__dirname, filename);
+    //     return fs.readFileSync(filePath, "utf8");
+    // }
+    // 
+    // // Example usage
+    // const userInput = "../../etc/passwd"; // Malicious input
+    // console.log(readFile(userInput)); // This could expose sensitive files
+    // // Example usage
+    // try {
+    //     const userInput = "example.txt"; // Valid input
+    //     console.log(readFileSafe(userInput));
+    // } catch (err) {
+    //     console.error(err.message);
+    // }
+
+    // Allow only filenames without directory traversal
+    if (!/^[a-zA-Z0-9_\-\.]+$/.test(filename)) {
+        throw new Error("Invalid filename");
+    }
+
+    // Construct the file path safely
+    const filePath = path.join(__dirname, filename);
+
+    // Ensure the resolved path is within the intended directory
+    const resolvedPath = path.resolve(filePath);
+
+    if (!resolvedPath.startsWith(__dirname)) {
+        throw new Error("Access denied");
+    }
+
+    return resolvedPath;
+}
+
+
+/**
+ *
+ *
  * @param {*} obj
  * @param {*} filename
  * @return {*} 
  */
-function writeToFile(obj, filename) {
+function writeToFile(obj, filename, safepath = false) {
     try {
-        fs.writeFileSync(filename, obj);
+        if (safepath === true) {
+            fs.writeFileSync(safeFilePath(filename), obj)
+        } else {
+            fs.writeFileSync(safeFilePath(filename), obj)
+        };
         return true
     } catch (e) {
         return JSON.stringify(e);
     }
 }
+
 
 /**
  * JsonManager
@@ -236,7 +287,7 @@ function JsonManager() {
 
         return results;
     }
-    
+
     // Searches values and returns an array of key-value pairs
     function searchValue(criteria, options = { like: false, regex: false }) {
         const results = [];
