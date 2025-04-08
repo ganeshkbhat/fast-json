@@ -259,10 +259,10 @@ manager.deleteKey('key2');
 
 ```
 // unflattenJson and unflatten work the same
-const unflattenJson = require('json-faster').unflattenJson; // Replace with the path to your implementation
+const unflatten = require('json-faster').unflatten; // Replace with the path to your implementation
 
 // flattenJsonWithEscaping and flatten work the same
-const flattenJsonWithEscaping = require('json-faster').flattenJsonWithEscaping; // Replace with the path to your implementation
+const flatten = require('json-faster').flatten; // Replace with the path to your implementation
 
 const writeToFile = require('json-faster').writeToFile;
 
