@@ -145,9 +145,7 @@ Returns the entire JSON object.
 
 (Dumping data)
 
-`console.log(manager.dump());` 
-
-// { key1: 'value1' }
+`console.log(manager.dump());` // { key1: 'value1' }
 
 
 #### dumpKeys(criteria, options, type): 
