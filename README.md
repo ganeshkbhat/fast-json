@@ -258,9 +258,12 @@ manager.deleteKey('key2');
 
 
 ```
-
+// unflattenJson and unflatten work the same
 const unflattenJson = require('json-faster').unflattenJson; // Replace with the path to your implementation
+
+// flattenJsonWithEscaping and flatten work the same
 const flattenJsonWithEscaping = require('json-faster').flattenJsonWithEscaping; // Replace with the path to your implementation
+
 const writeToFile = require('json-faster').writeToFile;
 
 const nestedData3 = {
@@ -274,7 +277,7 @@ const nestedData3 = {
     fakeup: 30
 }
 
-writeToFile(JSON.stringify(flattenJsonWithEscaping(nestedData3)), "./demos/flattenjson.txt")
-writeToFile(JSON.stringify(unflattenJson(flattenJsonWithEscaping(nestedData3))), "./demos/unflattenjson.txt")
+writeToFile(JSON.stringify(flatten(nestedData3)), "./demos/flattenjson.txt")
+writeToFile(JSON.stringify(unflatten(flatten(nestedData3))), "./demos/unflattenjson.txt")
 
 ```
