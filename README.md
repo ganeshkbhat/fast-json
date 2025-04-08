@@ -11,7 +11,7 @@ Explanation of Each Function Usage:
 #### init(obj): 
 Initializes the JSON manager with the provided object.
 
-// init or clear data, inits or clears with a blank object
+<small>// init or clear data, inits or clears with a blank object</small>
 
 `manager.init({});`
 
