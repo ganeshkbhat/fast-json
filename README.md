@@ -77,19 +77,19 @@ Searches for keys matching the criteria. Supports exact match, partial match (li
 
 `console.log(manager.search(['key1', 'key3', 'anotherKey']));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]*
 
 (Search using partial match)
 
 `console.log(manager.search('key', { like: true }));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]*
 
 (Search using regex)
 
 `console.log(manager.search('^key\\d$', { regex: true }));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]*
 
 
 #### searchValue(criteria, options): 
@@ -99,19 +99,19 @@ Searches for values matching the criteria. Supports exact match, partial match (
 
 `console.log(manager.searchValue('value1'));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }]*
 
 `console.log(manager.searchValue(['value1', 'value3']));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]*
 
 `console.log(manager.searchValue('value', { like: true }));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }, { key: 'keyWithValue1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }, { key: 'keyWithValue1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]*
 
 `console.log(manager.searchValue('^value\\d$', { regex: true }));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }, { key: 'keyWithValue1', value: 'value1' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }, { key: 'keyWithValue1', value: 'value1' }]*
 
 
 #### searchKeyValue(criteria, options): 
@@ -121,23 +121,23 @@ Searches for both keys and values matching the criteria.
 
 `console.log(manager.searchKeyValue('key1'));`
 
-// Output: [{ key: 'key1', value: 'value1' }]
+*// Output: [{ key: 'key1', value: 'value1' }]*
 
 `console.log(manager.searchKeyValue(['key1', 'value3']));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]*
 
 `console.log(manager.searchKeyValue('value1', { like: true }));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'keyWithValue1', value: 'value1' }]*
 
 `console.log(manager.searchKeyValue('^key\\d$', { regex: true }));`
 
-// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]
+*// Output: [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }]*
 
 `console.log(manager.searchKeyValue('value2', { regex: true }));`
 
-// Output: [{ key: 'key2', value: 'value2' }]
+*// Output: [{ key: 'key2', value: 'value2' }]*
 
 
 #### dump(): 
@@ -155,7 +155,7 @@ Dumps keys matching the criteria. The type can be "search", "value", or "keyvalu
 
 `console.log(manager.dumpKeys(['key1', 'key3', 'anotherKey'], { like: true }, "search"));`
 
-// Output dumps: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]
+*// Output dumps: [{ key: 'key1', value: 'value1' }, { key: 'anotherKey', value: 'value3' }]*
 
 
 #### dumpToFile(obj, filename): 
