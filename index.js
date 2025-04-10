@@ -385,6 +385,7 @@ function JsonManager() {
 
 }
 
+
 module.exports = {
     JsonManager,
     writeToFile,
