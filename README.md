@@ -141,7 +141,7 @@ Searches for both keys and values matching the criteria.
 
 
 #### dump(): 
-Returns the entire JSON object.
+Returns the entire JSON object. 
 
 (Dumping data)
 
