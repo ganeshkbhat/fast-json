@@ -17,13 +17,14 @@ describe('JsonManager', function () {
     });
 
     it('should create a key with null value if createKey is true', function () {
-      expect(manager.read('newKey', { createKey: true })).to.be.null;
+      expect(manager.read('newKey', { createKey: true })).not.to.be.undefined;
+      expect(manager.read('newKey', true)).not.to.be.null;
       expect(manager.dump()).to.have.property('newKey', null);
     });
 
     it('should return the value of an existing key', function () {
       manager.write('key1', 'value1');
-      expect(manager.read('key1')).to.equal('value1');
+      expect(manager.read('key1')["key1"]).to.equal('value1');
     });
   });
 

@@ -184,11 +184,11 @@ function JsonManager() {
     // Read method with createKey functionality
     function read(key, options = { createKey: false }) {
         if (data.hasOwnProperty(key)) {
-            return data[key];
+            return { [key]: data[key] }; // data[key]/
         }
-        if (options.createKey) {
+        if (!!options.createKey) {
             data[key] = null;
-            return data[key];
+            return { [key]: data[key] }; // data[key]/
         }
         return undefined;
     }
