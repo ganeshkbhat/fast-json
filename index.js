@@ -183,10 +183,10 @@ function JsonManager() {
 
     // Read method with createKey functionality
     function read(key, options = { createKey: false }) {
-        if (data.hasOwnProperty(key)) {
+        if (!!data[key]) {
             return { [key]: data[key] }; // data[key]/
         }
-        if (!!options.createKey) {
+        if (!!options.createKey || !data[key]) {
             data[key] = null;
             return { [key]: data[key] }; // data[key]/
         }
@@ -265,6 +265,7 @@ function JsonManager() {
             }
         } else if (options.regex) {
             // Search using a regex
+            // recheck this with tests
             const regex = new RegExp(criteria);
             for (const key of Object.keys(data)) {
                 if (regex.test(key)) {
@@ -377,6 +378,7 @@ function JsonManager() {
         init,
         hasKey,
         getKey,
+        get: getKey,
         deleteKey,
         search,
         searchValue,
