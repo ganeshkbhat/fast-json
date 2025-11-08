@@ -181,6 +181,12 @@ function JsonManager() {
     //     this.data = {};
     // }
 
+    // Write method to set a value for a key
+    function write(key, value) {
+        data[key] = value;
+        // return {[data[key]]: value}
+    }
+
     // Read method with createKey functionality
     function read(key, options = { createKey: false }) {
         if (!!data[key]) {
@@ -193,9 +199,14 @@ function JsonManager() {
         return undefined;
     }
 
-    // Write method to set a value for a key
-    function write(key, value) {
-        data[key] = value;
+    // Checks if a key exists
+    function hasKey(key) {
+        return !!data.hasOwnProperty(key) || !!data[key];
+    }
+
+    // Gets the value of a key
+    function getKey(key) {
+        return data[key];
     }
 
     // Dumps the entire JSON object
@@ -218,16 +229,6 @@ function JsonManager() {
     // Dumps the entire JSON object to file
     function dumpToFile(obj, filename) {
         return writeToFile(JSON.stringify(obj), filename);
-    }
-
-    // Checks if a key exists
-    function hasKey(key) {
-        return !!data.hasOwnProperty(key) || !!data[key];
-    }
-
-    // Gets the value of a key
-    function getKey(key) {
-        return data[key];
     }
 
     // Deletes the value of a key
