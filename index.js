@@ -177,14 +177,20 @@ function writeToFile(obj, filename, safepath = false) {
 function JsonManager() {
     var data = {};
 
-    // constructor() {
-    //     this.data = {};
-    // }
-
     // Write method to set a value for a key
     function write(key, value) {
         data[key] = value;
         // return {[data[key]]: value}
+    }
+
+    // Checks if a key exists
+    function hasKey(key) {
+        return !!data.hasOwnProperty(key) || !!data[key];
+    }
+
+    // Gets the value of a key
+    function getKey(key) {
+        return (!!hasKey(key)) ? data[key] : undefined;
     }
 
     // Read method with createKey functionality
@@ -197,16 +203,6 @@ function JsonManager() {
             return { [key]: data[key] }; // data[key]/
         }
         return undefined;
-    }
-
-    // Checks if a key exists
-    function hasKey(key) {
-        return !!data.hasOwnProperty(key) || !!data[key];
-    }
-
-    // Gets the value of a key
-    function getKey(key) {
-        return data[key];
     }
 
     // Dumps the entire JSON object
@@ -245,6 +241,12 @@ function JsonManager() {
     function init(obj = {}) {
         // return data = flattenJsonWithEscaping(obj);
         return data = obj;
+    }
+
+    // instantiates the new value
+    function load(obj = {}) {
+        // return data = flattenJsonWithEscaping(obj);
+        return data = {...data, ...obj};
     }
 
     // updates the json with new json structure
@@ -377,6 +379,7 @@ function JsonManager() {
         dumpKeys,
         dumpToFile,
         init,
+        load,
         hasKey,
         getKey,
         get: getKey,

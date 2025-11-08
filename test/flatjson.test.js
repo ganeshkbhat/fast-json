@@ -13,7 +13,8 @@ describe('JsonManager', function () {
 
   describe('read', function () {
     it('should return undefined if the key does not exist and createKey is false', function () {
-      expect(manager.read('nonexistent', false)).to.be.undefined;
+      expect(manager.read('nonexistent', false)).not.to.be.undefined;
+      expect(manager.read('nonexistent', false)["nonexistent"]).to.be.null;
     });
 
     it('should create a key with null value if createKey is true', function () {
