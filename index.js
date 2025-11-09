@@ -246,13 +246,15 @@ function JsonManager() {
     // instantiates the new value
     function load(obj = {}) {
         // return data = flattenJsonWithEscaping(obj);
-        return data = {...data, ...obj};
+        data = {...data, ...obj};
+        return data
     }
 
     // updates the json with new json structure
     function update(obj) {
         // return { ...data, ...flattenJsonWithEscaping(obj) };
-        return { ...data, ...obj };
+        data = { ...data, ...obj };
+        return data
     }
 
     // Searches keys and returns an array of key-value pairs
