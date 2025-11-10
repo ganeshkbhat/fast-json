@@ -230,8 +230,8 @@ function JsonManager() {
     // Deletes the value of a key
     function deleteKey(key) {
         try {
-            delete data[key]
-            return true;
+            delete data[key];
+            return true
         } catch (e) {
             return false;
         }
