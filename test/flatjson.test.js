@@ -148,13 +148,15 @@ describe('JsonManager', function () {
     });
 
     it('should return key-value pairs for an exact value match', function () {
-      expect(manager.searchValue('value1')).to.deep.equal([
+      console.log(manager.searchValue(['value1']))
+      expect(manager.searchValue('value1')).to.deep.equal(JSON.parse(JSON.stringify([
         { key: 'key1', value: 'value1' },
         { key: 'keyWithValue1', value: 'value1' },
-      ]);
+      ])));
     });
 
     it('should return key-value pairs for values in an array', function () {
+      console.log(manager.searchValue(['value1', 'value2']))
       expect(manager.searchValue(['value1', 'value2'])).to.deep.equal([
         { key: 'key1', value: 'value1' },
         { key: 'key2', value: 'value2' },
