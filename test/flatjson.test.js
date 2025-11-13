@@ -140,7 +140,7 @@ describe('JsonManager', function () {
     });
   });
 
-  describe('searchValue', function () {
+  describe('searchValues', function () {
     beforeEach(function () {
       manager.write('key1', 'value1');
       manager.write('key2', 'value2');
@@ -148,14 +148,14 @@ describe('JsonManager', function () {
     });
 
     it('should return key-value pairs for an exact value match', function () {
-      expect(manager.searchValue('value1')).to.deep.equal([
+      expect(manager.searchValues('value1')).to.deep.equal([
         { key: 'key1', value: 'value1' },
         { key: 'keyWithValue1', value: 'value1' },
       ]);
     });
 
     it('should return key-value pairs for values in an array', function () {
-      expect(manager.searchValue(['value1', 'value2'])).to.deep.equal([
+      expect(manager.searchValues(['value1', 'value2'])).to.deep.equal([
         { key: 'key1', value: 'value1' },
         { key: 'key2', value: 'value2' },
         { key: 'keyWithValue1', value: 'value1' },
@@ -163,7 +163,7 @@ describe('JsonManager', function () {
     });
 
     it('should return key-value pairs for partial value matches', function () {
-      expect(manager.searchValue('value', { like: true })).to.deep.equal([
+      expect(manager.searchValues('value', { like: true })).to.deep.equal([
         { key: 'key1', value: 'value1' },
         { key: 'key2', value: 'value2' },
         { key: 'keyWithValue1', value: 'value1' },
@@ -171,7 +171,7 @@ describe('JsonManager', function () {
     });
 
     it('should return key-value pairs for regex value matches', function () {
-      expect(manager.searchValue('^value\\d$', { regex: true })).to.deep.equal([
+      expect(manager.searchValues('^value\\d$', { regex: true })).to.deep.equal([
         { key: 'key1', value: 'value1' },
         { key: 'key2', value: 'value2' },
         { key: 'keyWithValue1', value: 'value1' },
@@ -301,11 +301,11 @@ describe('JsonManager', function () {
 //     });
 //   });
 
-//   describe('searchValue', () => {
+//   describe('searchValues', () => {
 //     it('should return matching key-value pairs based on value criteria', () => {
 //       jsonManager.write('key1', 'value1');
 //       jsonManager.write('key2', 'value2');
-//       const results = jsonManager.searchValue('value1');
+//       const results = jsonManager.searchValues('value1');
 //       expect(results).to.deep.equal([{ key: 'key1', value: 'value1' }]);
 //     });
 //   });
