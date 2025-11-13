@@ -170,7 +170,7 @@ function writeToFile(obj, filename, safepath = false) {
 /**
  * JsonManager
  * 
- * read, write, update, dump, init, hasKey, getKey, delKey, search, searchValue, searchKeyValue
+ * read, write, update, dump, init, hasKey, getKey, delKey, search, searchValues, searchKeyValue
  *
  * @return {*} 
  */
@@ -214,7 +214,7 @@ function JsonManager() {
     // Dumps the entire criteria searchedJSON object
     function dumpKeys(criteria, options = { like: false, regex: false }, type = "search") {
         if (type === "value") {
-            return searchValue(criteria, options);
+            return searchValues(criteria, options);
         } else if (type === "keyvalue") {
             return searchKeyValue(criteria, options);
         } else {
@@ -454,7 +454,6 @@ function JsonManager() {
         search: searchKeyValue,
         searchKeys,
         searchValues,
-        searchValue: searchValues,
         searchKeyValue
     }
 
