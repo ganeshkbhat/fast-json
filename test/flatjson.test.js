@@ -102,7 +102,7 @@ describe('JsonManager', function () {
     });
   });
 
-  describe('searchKeyValue', function () {
+  describe('searchKeyValues', function () {
     beforeEach(function () {
       manager.write('key1', 'value1');
       manager.write('key2', 'value2');
@@ -110,21 +110,21 @@ describe('JsonManager', function () {
     });
 
     it('should return key-value pairs for exact key or value matches', function () {
-      expect(manager.searchKeyValue('value1')).to.deep.equal([
+      expect(manager.searchKeyValues('value1')).to.deep.equal([
         { key: 'key1', value: 'value1' },
         { key: 'keyWithValue1', value: 'value1' },
       ]);
     });
 
     it('should return key-value pairs for keys or values in an array', function () {
-      expect(manager.searchKeyValue(['key1', 'value2'])).to.deep.equal([
+      expect(manager.searchKeyValues(['key1', 'value2'])).to.deep.equal([
         { key: 'key1', value: 'value1' },
         { key: 'key2', value: 'value2' },
       ]);
     });
 
     it('should return key-value pairs for partial key or value matches', function () {
-      expect(manager.searchKeyValue('value', { like: true })).to.deep.equal([
+      expect(manager.searchKeyValues('value', { like: true })).to.deep.equal([
         { key: 'key1', value: 'value1' },
         { key: 'key2', value: 'value2' },
         { key: 'keyWithValue1', value: 'value1' },
@@ -132,7 +132,7 @@ describe('JsonManager', function () {
     });
 
     it('should return key-value pairs for regex key or value matches', function () {
-      expect(manager.searchKeyValue('^value\\d$', { regex: true })).to.deep.equal([
+      expect(manager.searchKeyValues('^value\\d$', { regex: true })).to.deep.equal([
         { key: 'key1', value: 'value1' },
         { key: 'key2', value: 'value2' },
         { key: 'keyWithValue1', value: 'value1' },
@@ -176,6 +176,46 @@ describe('JsonManager', function () {
         { key: 'key2', value: 'value2' },
         { key: 'keyWithValue1', value: 'value1' },
       ]);
+    });
+  });
+
+  describe('searchkeys', function () {
+    beforeEach(function () {
+      manager.write('key1', 'value1');
+      manager.write('key2', 'value2');
+      manager.write('keyWithValue1', 'value1');
+    });
+
+    it('should return key-value pairs for keys in single key search an exact value match', function () {
+      expect(manager.searchKeys('key1')).to.deep.equal([
+        { key: 'key1', value: 'value1' },
+      ]);
+    });
+
+    it('should return key-value pairs for keys in single key search', function () {
+      expect(manager.searchKeys('key2')).to.deep.equal([
+        { key: 'key2', value: 'value2' },
+      ]);
+    });
+
+    it('should return key-value pairs for partial value matches', function () {
+      expect(manager.searchKeys('key', { like: true })).to.deep.equal([
+        { key: 'key1', value: 'value1' },
+        { key: 'key2', value: 'value2' },
+        { key: 'keyWithValue1', value: 'value1' },
+      ]);
+    });
+
+    it('should return key-value pairs for regex value matches', function () {
+      expect(manager.searchKeys('^key\\d$', { like: true, regex: true })).to.deep.equal([
+        { key: 'key1', value: 'value1' },
+        { key: 'key2', value: 'value2' },
+      ]);
+    });
+
+    it('should return key-value pairs for array input value matches', function () {
+      // // should not support arrray as input
+      expect(manager.searchKeys(['test'], { like: true, regex: true })).to.deep.equal([]);
     });
   });
 });

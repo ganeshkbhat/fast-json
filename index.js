@@ -297,7 +297,7 @@ function JsonManager() {
      * @param {object} [options={ like: false, regex: false }] Search options.
      * @returns {Array<{key: string, value: any}>} An array of objects that match the criteria.
      */
-    function searchKeyValue(criteria, options = { like: false, regex: false }) {
+    function searchKeyValues(criteria, options = { like: false, regex: false }) {
         const results = [];
         const entries = Object.entries(data);
 
@@ -451,10 +451,10 @@ function JsonManager() {
         getKey,
         get: getKey,
         deleteKey,
-        search: searchKeyValue,
+        search: searchKeyValues,
         searchKeys,
         searchValues,
-        searchKeyValue
+        searchKeyValues
     }
 
 }
