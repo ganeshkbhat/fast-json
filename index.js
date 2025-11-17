@@ -237,6 +237,29 @@ function JsonManager() {
         }
     }
 
+    /**
+     * Deletes multiple key-value entries.
+     * @param {string[]} keysArray An array of keys to delete.
+     * @returns {string[]} An array containing the keys that were successfully deleted.
+     */
+    function deleteKeys(keysArray) {
+        if (!Array.isArray(keysArray)) {
+            console.error("Error: deleteKeys requires an array of keys.");
+            return [];
+        }
+
+        const deletedKeys = [];
+        for (const key of keysArray) {
+            if (data.hasOwnProperty(key)) {
+                delete data[key];
+                deletedKeys.push(key);
+            } else {
+                console.warn(`Warning: Key '${key}' not found, skipping deletion.`);
+            }
+        }
+        return deletedKeys;
+    }
+
     // instantiates the new value
     function init(obj = {}) {
         // return data = flattenJsonWithEscaping(obj);
@@ -367,11 +390,11 @@ function JsonManager() {
     function searchKeys(criteria, options = { like: false, regex: false }) {
         const results = [];
 
-        // Array criteria is not supported for searchKeys, only single string/RegExp
-        if (Array.isArray(criteria)) {
-            console.error("searchKeys only supports string or RegExp criteria.");
-            return results;
-        }
+        // // Array criteria is not supported for searchKeys, only single string/RegExp
+        // if (Array.isArray(criteria)) {
+        //     console.error("searchKeys only supports string or RegExp criteria.");
+        //     return results;
+        // }
 
         for (const [key, value] of Object.entries(data)) {
             if (isMatch(key, criteria, options)) {
@@ -451,6 +474,7 @@ function JsonManager() {
         getKey,
         get: getKey,
         deleteKey,
+        deleteKeys,
         search: searchKeyValues,
         searchKeys,
         searchValues,
