@@ -64,6 +64,19 @@ describe('JsonManager', function () {
     });
   });
 
+  describe('delete', function () {
+    it('delete: should return a shallow copy of the data to test delete function', function () {
+      manager.write('key1', 'value1');
+      manager.deleteKey('key1', 'value1');
+      expect(manager.dump()).not.to.have.property('key1', 'value1');
+      expect(manager.read("key1").key1).to.be.equal(null)
+      manager.write('key12', 'value112');
+      manager.deleteKey('key12', 'value112');
+      expect(manager.dump()).not.to.have.property('key12', 'value112');
+      expect(manager.read("key12").key12).to.be.equal(null)
+    });
+  });
+
   describe('load', function () {
     it('load: should return a shallow copy of the data', function () {
       manager.write('key1', 'value1');
