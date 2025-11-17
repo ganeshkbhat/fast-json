@@ -4,6 +4,50 @@ fast read write to json object using a flat json structure read write update.
 this package supports the fast, secure and private, memory leak resistant redis like key value json based data store [keyvalue-jsondb](https://github.com/ganeshkbhat/keyvalue-jsondb.git) package. 
 
 
+### Example Usage:
+
+```
+
+const JsonManager = require('../index').JsonManager; // Replace with the path to your implementation
+
+// Usage Example:
+const manager = new JsonManager();
+manager.init({
+    12: 20000,
+    879898: ["test", "for", "alues"],
+    "testing": "for alues",
+    "123tsj": "testing",
+    "store": ["vaue", "loads", 10],
+    'user_id': 101,
+    'username': 'alpha_user',
+    'status': 'Active',
+    'tags': ['premium', 'new_member', 'verified'],
+    'location': 'New York City',
+    'last_login': '2025-11-10',
+    'settings': { theme: 'dark', notifications: true },
+    'scores': [95, 88, 92]
+})
+
+// Find the entry where the key is 'status' OR the value is 'Active'
+const exactMatchResult = manager.searchKeyValue('Active');
+
+console.log('1. Exact Match Result (Active):', exactMatchResult);
+
+manager.write('key1', 'value1');
+manager.write('key2', 'value2');
+
+manager.dump()
+
+manager.dumpKeys(['key1', 'key3', 'anotherKey'], { like: true }, "search")
+
+manager.search('^key\\d$', { regex: true })
+
+manager.write('key1', 'value1');
+console.log(manager.hasKey('key1')); // true
+console.log(manager.getKey('key1')); // 'value1'
+
+```
+
 ### USAGE:
 
 Explanation of Each Function Usage:
