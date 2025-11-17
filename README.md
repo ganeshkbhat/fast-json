@@ -6,7 +6,7 @@ fast read write to json object using a flat json structure read write update. th
 
 ```
 
-const JsonManager = require('../index').JsonManager; // Replace with the path to your implementation
+const JsonManager = require('json-faster').JsonManager; // Replace with the path to your implementation
 
 // Usage Example:
 const manager = new JsonManager();
