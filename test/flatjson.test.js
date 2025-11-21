@@ -13,8 +13,8 @@ describe('JsonManager', function () {
 
   describe('read', function () {
     it('read: should return undefined if the key does not exist and createKey is false', function () {
-      expect(manager.read('nonexistent', false)).not.to.be.undefined;
-      expect(manager.read('nonexistent', false)["nonexistent"]).to.be.null;
+      expect(manager.read('nonexistent', { createKey: false })).to.be.undefined;
+      expect(manager.read('nonexistent', { createKey: true })["nonexistent"]).to.be.null;
     });
 
     it('read: should create a key with null value if createKey is true', function () {
@@ -38,7 +38,7 @@ describe('JsonManager', function () {
 
   describe('init', function () {
     it('init: should set the value of a key', function () {
-      manager.init({'key1': 'value1'});
+      manager.init({ 'key1': 'value1' });
       expect(manager.dump()).to.have.property('key1', 'value1');
       expect(manager.dump().key1).to.be.equal('value1');
     });
@@ -57,7 +57,7 @@ describe('JsonManager', function () {
   describe('update', function () {
     it('update: should return a shallow copy of the data', function () {
       manager.write('key1', 'value1');
-      manager.update({"key1": "value2"})
+      manager.update({ "key1": "value2" })
       // manager.update({key: "key1", value: "value2"})
       expect(manager.dump()).to.have.property('key1', 'value2');
       expect(manager.read("key1").key1).to.be.equal("value2")
@@ -69,18 +69,93 @@ describe('JsonManager', function () {
       manager.write('key1', 'value1');
       manager.deleteKey('key1', 'value1');
       expect(manager.dump()).not.to.have.property('key1', 'value1');
-      expect(manager.read("key1").key1).to.be.equal(null)
+      expect(manager.read("key1")).to.be.equal(undefined)
       manager.write('key12', 'value112');
-      manager.deleteKey('key12', 'value112');
-      expect(manager.dump()).not.to.have.property('key12', 'value112');
-      expect(manager.read("key12").key12).to.be.equal(null)
+      manager.deleteKey('key12');
+      expect(manager.dump()).not.to.have.property('key12');
+      expect(manager.read("key12")).to.be.undefined;
     });
   });
+
+  describe('deleteKey', function () {
+    it('deleteKey: should return a shallow copy of the data to test delete function .deleteKeys("key12") - 1', function () {
+      manager.write('key1', 'value1');
+      manager.deleteKey('key1');
+      expect(manager.dump()).not.to.have.property('key1', 'value1');
+      expect(manager.read("key1")).to.be.equal(undefined)
+      
+      expect(manager.dump()).not.to.have.property('key1');
+      expect(manager.read("key1")).to.be.undefined;
+    });
+    it('deleteKey: should return a shallow copy of the data to test delete function .deleteKeys("key12") - 2', function () {
+      manager.write('key1', 'value1');
+      manager.deleteKey('key1');
+      expect(manager.dump()).not.to.have.property('key1', 'value1');
+      expect(manager.read("key1")).to.be.equal(undefined)
+      manager.write('key12', "value112");
+      manager.deleteKey('key12');
+      manager.deleteKey("key2");
+      expect(manager.dump()).not.to.have.property('key12');
+      expect(manager.read("key12")).to.be.undefined;
+      expect(manager.dump()).not.to.have.property('key1');
+      expect(manager.read("key1")).to.be.undefined;
+    });
+  });
+
+  describe('deleteKeys', function () {
+    it('deleteKeys: should return a shallow copy of the data to test delete function .deleteKeys(["key12", "key2"])', function () {
+      manager.write('key1', 'value1');
+      manager.write('key12', "value112");
+      manager.deleteKeys(['key12', "key2"]);
+      expect(manager.dump()).not.to.have.property('key12');
+      expect(manager.read("key12")).to.be.undefined;
+      expect(manager.dump()).to.have.property('key1');
+      expect(manager.read("key1").key1).to.be.equal("value1");
+      expect(manager.read("key12")).to.be.equal(undefined);
+    });
+
+    it('deleteKeys: should throw error or warning when deleting from delete function .deleteKeys(["key2"])', function () {
+      manager.write('key1', 'value1');
+      manager.write('key12', "value112");
+      expect(manager.dump()).not.to.have.property('key2');
+      let deletedResult = manager.deleteKeys(["key2"]);
+      console.log("deletedResult", deletedResult)
+      expect(manager.dump()).not.to.have.property('key2');
+      expect(manager.read("key2")).to.be.undefined;
+      expect(manager.dump()).to.have.property('key1');
+      expect(manager.read("key1").key2).to.be.equal(undefined);
+      expect(manager.read("key12").key2).to.be.equal(undefined);
+      expect(manager.read("key2")).to.be.equal(undefined);
+    });
+
+    it('deleteKeys: should throw error or warning when deleting from delete function .deleteKeys(["key2"]) when item is deleted', function () {
+      manager.write('key1', 'value1');
+      manager.write('key12', "value112");
+      expect(manager.dump()).not.to.have.property('key2');
+      expect(manager.read("key12").key12).not.to.be.equal(undefined);
+      let deletedResult = manager.deleteKeys(["key2", "key12"]);
+      console.log("deletedResult", deletedResult)
+      expect(manager.read("key12")).to.be.equal(undefined);
+      expect(manager.read("key2")).to.be.equal(undefined);
+    });
+
+    it('deleteKeys: should return a shallow copy of the many or multiple data keys to test delete function', function () {
+      manager.write('key1', 'value1');
+      manager.deleteKeys(['key1']);
+      manager.write('key12', "value112");
+      manager.deleteKeys(['key12', "key2"]);
+      expect(manager.dump()).not.to.have.property('key12');
+      expect(manager.read("key12")).to.be.undefined;
+      expect(manager.dump()).not.to.have.property('key1');
+      expect(manager.read("key1")).to.be.undefined;
+    });
+  });
+
 
   describe('load', function () {
     it('load: should return a shallow copy of the data', function () {
       manager.write('key1', 'value1');
-      manager.load({"key1": "value2"})
+      manager.load({ "key1": "value2" })
       expect(manager.dump()).to.have.property('key1', 'value2');
       expect(manager.read("key1").key1).to.be.equal("value2")
     });
@@ -88,7 +163,7 @@ describe('JsonManager', function () {
 
   describe('dumpkeys', function () {
     it('dumpkeys: should return a shallow copy of the data', function () {
-      
+
     });
   });
 

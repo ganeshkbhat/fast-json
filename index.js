@@ -198,7 +198,7 @@ function JsonManager() {
         if (!!data[key]) {
             return { [key]: data[key] }; // data[key]/
         }
-        if (!!options.createKey || !data[key]) {
+        if (!!options.createKey && !data[key]) {
             data[key] = null;
             return { [key]: data[key] }; // data[key]/
         }
