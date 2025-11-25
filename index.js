@@ -531,6 +531,7 @@ function JsonManager() {
     return {
         read,
         write,
+        set,
         update,
         dump,
         dumpKeys,
