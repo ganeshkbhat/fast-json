@@ -176,10 +176,30 @@ function writeToFile(obj, filename, safepath = false) {
  */
 function JsonManager() {
     var data = {};
+    // writing to json manager data flag or lock
+    var lock = false;
+    var eventPause = []
 
     // Write method to set a value for a key
     function write(key, value) {
         data[key] = value;
+        // return {[data[key]]: value}
+    }
+
+    // Write method to set a value for a key
+    function set(key, value) {
+        if (lock === false) {
+            lock = true
+            data[key] = value;
+            lock = false
+        } else if (lock === true) {
+            eventPause.push({
+                event: set,
+                key: key,
+                value: value
+            })
+        }
+
         // return {[data[key]]: value}
     }
 
@@ -229,11 +249,21 @@ function JsonManager() {
 
     // Deletes the value of a key
     function deleteKey(key) {
-        try {
-            delete data[key];
-            return true
-        } catch (e) {
-            return false;
+        if (lock === false) {
+            try {
+                lock = true
+                delete data[key];
+                lock = false
+                
+                return true
+            } catch (e) {
+                return false;
+            }
+        } else if (lock === true) {
+            eventPause.push({
+                event: "load",
+                key: key
+            })
         }
     }
 
@@ -243,41 +273,78 @@ function JsonManager() {
      * @returns {string[]} An array containing the keys that were successfully deleted.
      */
     function deleteKeys(keysArray) {
-        if (!Array.isArray(keysArray)) {
-            console.error("Error: deleteKeys requires an array of keys.");
-            return [];
-        }
-
-        const deletedKeys = [];
-        for (const key of keysArray) {
-            if (data.hasOwnProperty(key)) {
-                delete data[key];
-                deletedKeys.push(key);
-            } else {
-                console.warn(`Warning: Key '${key}' not found, skipping deletion.`);
+        if (lock === false) {
+            lock = true
+            if (!Array.isArray(keysArray)) {
+                console.error("Error: deleteKeys requires an array of keys.");
+                return [];
             }
+
+            const deletedKeys = [];
+            for (const key of keysArray) {
+                if (data.hasOwnProperty(key)) {
+                    delete data[key];
+                    deletedKeys.push(key);
+                } else {
+                    console.warn(`Warning: Key '${key}' not found, skipping deletion.`);
+                }
+            }
+            lock === true
+            return deletedKeys;
+        } else if (lock === true) {
+            eventPause.push({
+                event: "deleteKeys",
+                keys: keysArray
+            })
         }
-        return deletedKeys;
     }
 
     // instantiates the new value
     function init(obj = {}) {
         // return data = flattenJsonWithEscaping(obj);
-        return data = obj;
+        if (lock === false) {
+            lock = true
+            data = obj;
+            lock = false
+            return data
+        } else if (lock === true) {
+            eventPause.push({
+                event: "load",
+                obj: obj
+            })
+        }
     }
 
     // instantiates the new value
     function load(obj = {}) {
         // return data = flattenJsonWithEscaping(obj);
-        data = { ...data, ...obj };
-        return data
+        if (lock === false) {
+            lock = true
+            data = { ...data, ...obj };
+            lock = false
+            return data
+        } else if (lock === true) {
+            eventPause.push({
+                event: "load",
+                obj: obj
+            })
+        }
     }
 
     // updates the json with new json structure
     function update(obj) {
         // return { ...data, ...flattenJsonWithEscaping(obj) };
-        data = { ...data, ...obj };
-        return data
+        if (lock === false) {
+            lock = true
+            data = { ...data, ...obj };
+            lock = false
+            return data
+        } else if (lock === true) {
+            eventPause.push({
+                event: "load",
+                obj: obj
+            })
+        }
     }
 
     /**
