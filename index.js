@@ -189,6 +189,11 @@ function JsonManager() {
         return flag;
     }
 
+    function droplock(){
+        flag = false
+        return flag;
+    }
+
     // Write method to set a value for a key
     function write(key, value) {
         data[key] = value;
