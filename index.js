@@ -549,6 +549,7 @@ function JsonManager() {
         update,
         lock,
         setlock,
+        droplock,
         dump,
         dumpKeys,
         dumpToFile,
