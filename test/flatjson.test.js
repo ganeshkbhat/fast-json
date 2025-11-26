@@ -119,7 +119,7 @@ describe('JsonManager', function () {
       manager.write('key12', "value112");
       expect(manager.dump()).not.to.have.property('key2');
       let deletedResult = manager.deleteKeys(["key2"]);
-      console.log("deletedResult", deletedResult)
+      // console.log("deletedResult", deletedResult)
       expect(manager.dump()).not.to.have.property('key2');
       expect(manager.read("key2")).to.be.undefined;
       expect(manager.dump()).to.have.property('key1');
@@ -134,7 +134,7 @@ describe('JsonManager', function () {
       expect(manager.dump()).not.to.have.property('key2');
       expect(manager.read("key12").key12).not.to.be.equal(undefined);
       let deletedResult = manager.deleteKeys(["key2", "key12"]);
-      console.log("deletedResult", deletedResult)
+      // console.log("deletedResult", deletedResult)
       expect(manager.read("key12")).to.be.equal(undefined);
       expect(manager.read("key2")).to.be.equal(undefined);
     });
@@ -144,23 +144,32 @@ describe('JsonManager', function () {
       // deletekey tests are failing
       manager.write('key1', 'value1');
       manager.write('key12', 'value110');
+      let e = manager.get("key12")
+      // console.log("delete 4", "key1" , e)
+      e = manager.get("key1")
+      // console.log("delete 4", "key1" , e)
       manager.deleteKey(['key1']);
+      // console.log("delete 4", "key1" , e)
       let c = manager.update('key12', "value112");
       let d = manager.deleteKey('key12')
-      let e = manager.get("key12")
+      e = manager.get("key12")
+      // console.log("delete 4", "key12" , e)
       // manager.deleteKey("key12");
       // manager.deleteKey(["key12"]);
       // manager.deleteKey(["key12", "key1"]);
       // manager.deleteKeys(['key12']);
       // manager.deleteKey(['key12']);
-      console.log("delete 4", d, "c", c)
+      e = manager.get("key1")
+      // console.log("delete 4", "key1" , e)
       expect(d).to.equal(true);
       expect(manager.dump().key12).to.be.equal(undefined);
-      expect(manager.dump().key12).not.to.be.equal("key12");
-      expect(manager.read("key12")).not.to.be.equal({ "key12": "value112" });
+      expect(manager.read("key12")).to.be.equal(undefined);
       expect(manager.get("key12")).to.be.equal(undefined);
-      expect(manager.dump()).not.to.have.property('key1');
+      expect(manager.get("key1")).to.be.equal(undefined);
       expect(manager.read("key1")).to.be.undefined;
+      expect(manager.read("key12")).to.be.undefined;
+      expect(manager.dump()).not.to.have.property('key1');
+      expect(manager.dump()).not.to.have.property('key12');
     });
   });
 

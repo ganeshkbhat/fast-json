@@ -177,8 +177,17 @@ function writeToFile(obj, filename, safepath = false) {
 function JsonManager() {
     var data = {};
     // writing to json manager data flag or lock
-    var lock = false;
-    var eventPause = []
+    var flag = false;
+    var eventPause = [];
+
+    function getlock(){
+        return flag
+    }
+
+    function setlock(){
+        flag = true
+        return flag;
+    }
 
     // Write method to set a value for a key
     function write(key, value) {
@@ -188,11 +197,11 @@ function JsonManager() {
 
     // Write method to set a value for a key
     function set(key, value) {
-        if (lock === false) {
-            lock = true
+        if (flag === false) {
+            flag = true
             data[key] = value;
-            lock = false
-        } else if (lock === true) {
+            flag = false
+        } else if (flag === true) {
             eventPause.push({
                 event: set,
                 key: key,
@@ -249,17 +258,17 @@ function JsonManager() {
 
     // Deletes the value of a key
     function deleteKey(key) {
-        if (lock === false) {
+        if (flag === false) {
             try {
-                lock = true
+                flag = true
                 delete data[key];
-                lock = false
+                flag = false
                 
                 return true
             } catch (e) {
                 return false;
             }
-        } else if (lock === true) {
+        } else if (flag === true) {
             eventPause.push({
                 event: "load",
                 key: key
@@ -273,8 +282,8 @@ function JsonManager() {
      * @returns {string[]} An array containing the keys that were successfully deleted.
      */
     function deleteKeys(keysArray) {
-        if (lock === false) {
-            lock = true
+        if (flag === false) {
+            flag = true
             if (!Array.isArray(keysArray)) {
                 console.error("Error: deleteKeys requires an array of keys.");
                 return [];
@@ -289,9 +298,9 @@ function JsonManager() {
                     console.warn(`Warning: Key '${key}' not found, skipping deletion.`);
                 }
             }
-            lock === true
+            flag === true
             return deletedKeys;
-        } else if (lock === true) {
+        } else if (flag === true) {
             eventPause.push({
                 event: "deleteKeys",
                 keys: keysArray
@@ -302,12 +311,12 @@ function JsonManager() {
     // instantiates the new value
     function init(obj = {}) {
         // return data = flattenJsonWithEscaping(obj);
-        if (lock === false) {
-            lock = true
+        if (flag === false) {
+            flag = true
             data = obj;
-            lock = false
+            flag = false
             return data
-        } else if (lock === true) {
+        } else if (flag === true) {
             eventPause.push({
                 event: "load",
                 obj: obj
@@ -318,12 +327,12 @@ function JsonManager() {
     // instantiates the new value
     function load(obj = {}) {
         // return data = flattenJsonWithEscaping(obj);
-        if (lock === false) {
-            lock = true
+        if (flag === false) {
+            flag = true
             data = { ...data, ...obj };
-            lock = false
+            flag = false
             return data
-        } else if (lock === true) {
+        } else if (flag === true) {
             eventPause.push({
                 event: "load",
                 obj: obj
@@ -334,12 +343,12 @@ function JsonManager() {
     // updates the json with new json structure
     function update(obj) {
         // return { ...data, ...flattenJsonWithEscaping(obj) };
-        if (lock === false) {
-            lock = true
+        if (flag === false) {
+            flag = true
             data = { ...data, ...obj };
-            lock = false
+            flag = false
             return data
-        } else if (lock === true) {
+        } else if (flag === true) {
             eventPause.push({
                 event: "load",
                 obj: obj
@@ -533,6 +542,8 @@ function JsonManager() {
         write,
         set,
         update,
+        getlock,
+        setlock,
         dump,
         dumpKeys,
         dumpToFile,
