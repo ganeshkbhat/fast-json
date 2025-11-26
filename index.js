@@ -180,27 +180,53 @@ function JsonManager() {
     var flag = false;
     var eventPause = [];
 
-    function lock(){
+    /**
+     *
+     *
+     * @return {*} 
+     */
+    function lock() {
         return flag
     }
 
-    function setlock(lock = true){
+    /**
+     *
+     *
+     * @param {boolean} [lock=true]
+     * @return {*} 
+     */
+    function setlock(lock = true) {
         flag = lock || true
         return flag;
     }
 
-    function droplock(){
+    /**
+     *
+     *
+     * @return {*} 
+     */
+    function droplock() {
         flag = false
         return flag;
     }
 
-    // Write method to set a value for a key
+    /**
+     *
+     *
+     * @param {*} key
+     * @param {*} value
+     */
     function write(key, value) {
         data[key] = value;
         // return {[data[key]]: value}
     }
 
-    // Write method to set a value for a key
+    /**
+     *
+     *
+     * @param {*} key
+     * @param {*} value
+     */
     function set(key, value) {
         if (flag === false) {
             flag = true
@@ -239,13 +265,24 @@ function JsonManager() {
         return undefined;
     }
 
-    // Dumps the entire JSON object
+    /**
+     *
+     *
+     * @return {*} 
+     */
     function dump() {
         // return { ...unflattenJson(data) }; // Return a shallow copy to prevent direct modification
         return { ...data }; // Return a shallow copy to prevent direct modification
     }
 
-    // Dumps the entire criteria searchedJSON object
+    /**
+     *
+     *
+     * @param {*} criteria
+     * @param {boolean} [options={ like: false, regex: false }]
+     * @param {string} [type="search"]
+     * @return {*} 
+     */
     function dumpKeys(criteria, options = { like: false, regex: false }, type = "search") {
         if (type === "value") {
             return searchValues(criteria, options);
@@ -261,14 +298,19 @@ function JsonManager() {
         return writeToFile(JSON.stringify(obj), filename);
     }
 
-    // Deletes the value of a key
+    /**
+     *
+     *
+     * @param {*} key
+     * @return {*} 
+     */
     function deleteKey(key) {
         if (flag === false) {
             try {
                 flag = true
                 delete data[key];
                 flag = false
-                
+
                 return true
             } catch (e) {
                 return false;
@@ -314,6 +356,12 @@ function JsonManager() {
     }
 
     // instantiates the new value
+    /**
+     *
+     *
+     * @param {*} [obj={}]
+     * @return {*} 
+     */
     function init(obj = {}) {
         // return data = flattenJsonWithEscaping(obj);
         if (flag === false) {
@@ -330,6 +378,12 @@ function JsonManager() {
     }
 
     // instantiates the new value
+    /**
+     *
+     *
+     * @param {*} [obj={}]
+     * @return {*} 
+     */
     function load(obj = {}) {
         // return data = flattenJsonWithEscaping(obj);
         if (flag === false) {
