@@ -1,5 +1,6 @@
 
-
+// lock flag and remove flag demo while read-write
+// todo : allow event driven management
 const JsonManager = require('../index').JsonManager; // Replace with the path to your implementation
 
 // Usage Example:
@@ -26,3 +27,5 @@ if (!!manager.lock()) {
 
 manager.write('anotherKey', 'value3');
 manager.write('keyWithValue1', 'value1');
+
+console.log("writing without a lock")
