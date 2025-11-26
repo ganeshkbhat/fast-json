@@ -180,12 +180,12 @@ function JsonManager() {
     var flag = false;
     var eventPause = [];
 
-    function getlock(){
+    function lock(){
         return flag
     }
 
-    function setlock(){
-        flag = true
+    function setlock(lock = true){
+        flag = lock || true
         return flag;
     }
 
@@ -542,7 +542,7 @@ function JsonManager() {
         write,
         set,
         update,
-        getlock,
+        lock,
         setlock,
         dump,
         dumpKeys,
