@@ -218,7 +218,7 @@ function JsonManager() {
      */
     function write(key, value) {
         data[key] = value;
-        // return {[data[key]]: value}
+        return { [data[key]]: value }
     }
 
     /**
@@ -240,7 +240,23 @@ function JsonManager() {
             })
         }
 
-        // return {[data[key]]: value}
+        return { [data[key]]: value }
+    }
+
+    // updates the json with new json structure
+    function update(obj) {
+        // return { ...data, ...flattenJsonWithEscaping(obj) };
+        if (flag === false) {
+            flag = true
+            data = { ...data, ...obj };
+            flag = false
+            return obj
+        } else if (flag === true) {
+            eventPause.push({
+                event: "load",
+                obj: obj
+            })
+        }
     }
 
     // Checks if a key exists
@@ -264,6 +280,8 @@ function JsonManager() {
         }
         return undefined;
     }
+
+
 
     /**
      *
@@ -399,21 +417,7 @@ function JsonManager() {
         }
     }
 
-    // updates the json with new json structure
-    function update(obj) {
-        // return { ...data, ...flattenJsonWithEscaping(obj) };
-        if (flag === false) {
-            flag = true
-            data = { ...data, ...obj };
-            flag = false
-            return data
-        } else if (flag === true) {
-            eventPause.push({
-                event: "load",
-                obj: obj
-            })
-        }
-    }
+
 
     /**
      * Helper function to determine if a term matches the criteria based on options (Exact, Like, Regex).
